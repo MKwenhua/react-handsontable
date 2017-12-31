@@ -25,13 +25,13 @@ import 'handsontable/dist/handsontable.full.css';
  *
  * @class HotTable
  */
-export default class HotTable extends React.Component {
-  constructor() {
-    super();
+export default class HotTable extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
     this.hotInstance = null;
     this.settingsMapper = new SettingsMapper();
-    this.root = null;
+    this.root = props.root || 'hot' + new Date().getTime();;
   }
 
   /**
@@ -49,9 +49,8 @@ export default class HotTable extends React.Component {
    * @param {Object} nextState
    * @returns {Boolean}
    */
-  shouldComponentUpdate(nextProps, nextState) {
-    this.updateHot(this.settingsMapper.getSettings(nextProps));
-
+  componentWillUpdate(nextProps, nextState) {
+    const result = this.updateHot(this.settingsMapper.getSettings(nextProps));
     return false;
   }
 
@@ -68,7 +67,6 @@ export default class HotTable extends React.Component {
    * @returns {XML}
    */
   render() {
-    this.root = this.props.root || 'hot' + new Date().getTime();
     return <div id={this.root}></div>
   }
 
