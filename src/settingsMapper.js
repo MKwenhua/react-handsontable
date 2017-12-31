@@ -24,7 +24,7 @@ export default class SettingsMapper {
     }
 
     for (const key in properties) {
-      if (key != 'settings' && properties.hasOwnProperty(key)) {
+      if (key !== 'settings' && properties.hasOwnProperty(key)) {
         newSettings[this.trimHookPrefix(key)] = properties[key];
       }
     }
